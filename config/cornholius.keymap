@@ -24,10 +24,6 @@
 };
  */
 
-&soft_off_callback {
-    bindings = <&led_soft_off>;
-};
-
 / {
     keymap {
         compatible = "zmk,keymap";
