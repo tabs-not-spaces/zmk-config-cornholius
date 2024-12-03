@@ -10,97 +10,12 @@
 #include <dt-bindings/zmk/outputs.h>
 
 #include "keys_es.h"
-#include "elpekenin/behaviors.dtsi"
 
 #define QWE 0
 #define DVO 1
 #define NAV 2
 #define SYM 3
 #define UTL 4
-
-/ {
-    mod_morphs {
-        M_BSP: bspc_or_del {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&kp BSPC>, <&kp DEL>;
-            mods = <(MOD_LSFT)>;
-        };
-
-        M_VOL: volup_or_voldn {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&kp C_VOL_UP>, <&kp C_VOL_DN>;
-            mods = <(MOD_LSFT)>;
-        };
-    };
-
-    macros {
-        _4_SPC: space_times_4 {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&kp SPC>,
-                       <&kp SPC>,
-                       <&kp SPC>,
-                       <&macro_press   &kp SPC>,
-                       <&macro_pause_for_release>,
-                       <&macro_release &kp SPC>;
-        };
-
-        led_soft_off: led_soft_off {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            wait-ms = <200>;
-            bindings = <&gpio BLUE GPIO_ON>,
-                       <&gpio BLUE GPIO_OFF>,
-                       <&gpio BLUE GPIO_ON>,
-                       <&gpio BLUE GPIO_OFF>,
-                       <&soft_off>;
-        };
-    };
-
-    tap_dances {
-        T_Z: z_lt_gt {
-            compatible = "zmk,behavior-tap-dance";
-            #binding-cells = <0>;
-            bindings = <&kp Z>, <&kp ES_LT>, <&kp ES_GT>;
-        };
-
-        T_ACT: acute_ntilde {
-            compatible = "zmk,behavior-tap-dance";
-            #binding-cells = <0>;
-            bindings = <&kp ES_ACUTE>, <&kp ES_N_TILDE>;
-        };
-
-        T_SPC: space_indent {
-            compatible = "zmk,behavior-tap-dance";
-            #binding-cells = <0>;
-            bindings = <&kp SPC>, <&_4_SPC>;
-        };
-    };
-
-    conditional_layers {
-        compatible = "zmk,conditional-layers";
-        tri_layer {
-            if-layers = <NAV SYM>;
-            then-layer = <UTL>;
-        };
-    };
-
-    layer_callbacks {
-        compatible = "elpekenin,layer-callback";
-        utils_on {
-            layer = <UTL>;
-            event = "on-activation";
-            bindings = <&gpio GREEN GPIO_ON>;
-        };
-        utils_off {
-            layer = <UTL>;
-            event = "on-deactivation";
-            bindings = <&gpio GREEN GPIO_OFF>;
-        };
-    };
-};
 
 /**
  * patch to use PR code while still "importing" userspace
