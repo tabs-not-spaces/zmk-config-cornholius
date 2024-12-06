@@ -41,6 +41,7 @@
             mods = <(MOD_LSFT)>;
         };
     };
+};
 
 / {
     keymap {
