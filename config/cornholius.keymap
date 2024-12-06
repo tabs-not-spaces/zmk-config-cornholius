@@ -53,29 +53,16 @@
     };
 
     macros {
-        led_soft_off: led_soft_off {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            wait-ms = <200>;
-            bindings = <&gpio BLUE GPIO_ON>,
-                       <&gpio BLUE GPIO_OFF>,
-                       <&gpio BLUE GPIO_ON>,
-                       <&gpio BLUE GPIO_OFF>,
-                       <&soft_off>;
-        };
-
         uc_pound: uc_pound {
             label = "UNICODE_POUND";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             tap-ms = <0>;
             wait-ms = <0>;
-            bindings
-                = <&macro_press &kp LCTRL &kp LSHFT>
-                , <&macro_tap &kp U>
-                , <&macro_release &kp LCTRL &kp LSHFT>
-                , <&macro_tap &kp N0 &kp N0 &kp A &kp N3 &kp SPC>
-                ;
+            bindings =  <&macro_press &kp LCTRL &kp LSHFT>,
+                        <&macro_tap &kp U>,
+                        <&macro_release &kp LCTRL &kp LSHFT>,
+                        <&macro_tap &kp N0 &kp N0 &kp A &kp N3 &kp SPC>;
         }; 
     };
 };
