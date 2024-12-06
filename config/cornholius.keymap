@@ -12,10 +12,35 @@
 #include "keys_es.h"
 
 #define QWE 0
-#define DVO 1
-#define NAV 2
-#define SYM 3
-#define UTL 4
+#define LWR 1
+#define RSE 2
+#define FUN 3
+#define ARW 4
+#define UTL 5
+
+/ {
+    behaviors {
+        esc_exit: esc_exit {
+            compatible = "zmk,behavior-tap-dance";
+            label = "ESC_EXIT";
+            #binding-cells = <0>;
+            bindings =
+                <&kp ESC>,
+                <&kp LA(F4)>;
+
+            tapping-term-ms = <190>;
+        };
+        back_del: back_del {
+            compatible = "zmk,behavior-mod-morph";
+            label = "BACK_DEL";
+            bindings =
+                <&kp BACKSPACE>,
+                <&kp DELETE>;
+
+            #binding-cells = <0>;
+            mods = <(MOD_LSFT)>;
+        };
+    };
 
 / {
     keymap {
@@ -25,54 +50,55 @@
             display-name = "QWERTY";
 
             bindings = <
-                &kp TAB       &kp Q         &kp W         &kp E         &kp R         &kp T         /**/     &kp Y         &kp U         &kp I         &kp O         &kp P         &M_BSP
-                &none         &kp A         &kp S         &kp D         &kp F         &kp G         /**/     &kp H         &kp J         &kp K         &kp L         &T_ACT        &kp ES_PLUS
-                &kp LSHFT     &T_Z          &kp X         &kp C         &kp V         &kp B         /**/     &kp N         &kp M         &kp COMMA     &kp DOT       &kp ES_MINUS  &kp ES_GRAVE
-                &kp LCTRL     &kp LGUI      &kp LGUI      &kp LALT      &mo NAV       &T_SPC        /**/     &kp ENTER     &mo SYM       &kp RALT      &none         &none         &M_VOL
+                  &kp TAB  &kp Q  &kp W     &kp E  &kp R        &kp T          &kp Y  &kp U      &kp I    &kp O     &kp P         &back_del
+                &kp LCTRL  &kp A  &kp S     &kp D  &kp F        &kp G          &kp H  &kp J      &kp K    &kp L  &kp SEMI  &kp SINGLE_QUOTE
+                &kp LSHFT  &kp Z  &kp X     &kp C  &kp V        &kp B          &kp N  &kp M  &kp COMMA  &kp DOT  &kp FSLH         &esc_exit
+                    &none  &none  &none  &kp LGUI  &mo 1  &lt 4 SPACE    &lt 3 ENTER  &mo 2   &kp RALT    &none     &none            &M_VOL
             >;
         };
 
-        dvorak {
-            display-name = "DVORAK";
-
+        LWR {
             bindings = <
-                &kp TAB       &none         &none         &none         &kp P         &kp Y         /**/     &kp F         &kp G         &kp C         &kp R         &kp L         &M_BSP
-                &none         &kp A         &kp O         &kp E         &kp U         &kp I         /**/     &kp D         &kp H         &kp T         &kp N         &kp S         &none
-                &kp LSHFT     &none         &kp Q         &kp J         &kp K         &kp X         /**/     &kp B         &kp M         &kp W         &kp V         &kp Z         &none
-                &kp LCTRL     &kp LGUI      &kp LGUI      &kp LALT      &mo NAV       &T_SPC        /**/     &kp ENTER     &mo SYM       &kp RALT      &none         &none         &M_VOL
+        &kp LS(TAB)  &kp EXCL  &kp AT  &kp HASH  &kp DOLLAR  &kp PERCENT    &kp CARET  &kp AMPS          &kp STAR  &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS    &trans
+            &trans    &trans  &trans    &trans      &trans       &trans       &trans    &trans    &kp LEFT_BRACE       &kp RIGHT_BRACE              &kp MINUS  &kp EQUAL
+            &trans    &trans  &trans    &trans      &trans       &trans       &trans    &trans  &kp LEFT_BRACKET     &kp RIGHT_BRACKET          &kp BACKSLASH  &kp GRAVE
+            &trans    &trans  &trans    &trans      &trans       &trans       &trans    &trans            &trans                &trans                 &trans     &trans
             >;
         };
 
-        navigation {
-            display-name = "Navigation";
-
+        RSE {
             bindings = <
-                &kp ESC       &kp N1        &kp N2        &kp N3        &kp N4        &kp N5        /**/     &kp N6        &kp N7        &kp N8        &kp N9        &kp N0       &trans
-                &trans        &none         &none         &none         &none         &none         /**/     &kp LEFT      &kp DOWN      &kp UP        &kp RIGHT     &none        &trans
-                &trans        &none         &none         &none         &none         &none         /**/     &none         &none         &none         &none         &none        &trans
-                &trans        &trans        &trans        &trans        &trans        &trans        /**/     &trans        &trans        &trans        &trans        &trans       &trans
+&kp HOME  &kp N1  &kp N2  &kp N3  &kp N4  &kp N5    &kp N6  &kp N7  &kp N8  &kp N9  &kp N0  &trans
+ &kp END  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
+  &trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
+  &trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
             >;
         };
 
-        symbols {
-            display-name = "Symbols";
-
+        FNC {
             bindings = <
-                &kp ES_BSLH   &none         &none         &none         &none         &none         /**/     &none         &kp ES_IQMARK &kp ES_QMARK  &none         &kp ES_SQT    &trans
-                &trans        &none         &none         &none         &none         &none         /**/     &none         &kp ES_LBKT   &kp ES_RBKT   &none         &none         &trans
-                &trans        &none         &none         &none         &none         &none         /**/     &none         &kp ES_LBRC   &kp ES_RBRC   &none         &none         &trans
-                &trans        &trans        &trans        &trans        &trans        &trans        /**/     &trans        &trans        &trans        &trans        &trans        &trans
+&none  &kp F1   &kp F2   &kp F3   &kp F4  &none    &none  &none  &none  &none  &none  &none
+&none  &kp F5   &kp F6   &kp F7   &kp F8  &none    &none  &none  &none  &none  &none  &none
+&none  &kp F9  &kp F10  &kp F11  &kp F12  &none    &none  &none  &none  &none  &none  &none
+&none   &none    &none    &none    &none  &none    &none  &none  &none  &none  &none  &none 
             >;
         };
 
-        utils {
-            display-name = "Utilities";
-
+        ARW {
             bindings = <
-                &kp F12       &kp F1        &kp F2        &kp F3        &kp F4        &kp F5        /**/     &kp F6        &kp F7        &kp F8        &kp F9        &kp F10       &kp F11
-                &bt BT_CLR    &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &none         &sys_reset    /**/     &df DVO       &none         &none         &none         &none         &trans
-                &trans        &none         &none         &none         &none         &bootloader   /**/     &df QWE       &none         &none         &none         &none         &trans
-                &trans        &trans        &trans        &trans        &trans        &trans        /**/     &out OUT_TOG  &trans        &trans        &trans        &trans        &trans
+&none  &kp LC(LEFT)    &kp UP  &kp LC(RIGHT)  &none  &none    &none  &none  &none  &none  &none  &none
+&none      &kp LEFT  &kp DOWN      &kp RIGHT  &none  &none    &none  &none  &none  &none  &none  &none
+&none         &none     &none          &none  &none  &none    &none  &none  &none  &none  &none  &none
+&none         &none     &none          &none  &none  &none    &none  &none  &none  &none  &none  &none  
+            >;
+        };
+    
+        UTIL {
+            bindings = <
+&bt BT_CLR  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4    &none  &none  &none  &none  &none   &sys_reset
+     &none         &none         &none         &none         &none         &none    &none  &none  &none  &none  &none  &bootloader
+     &none         &none         &none         &none         &none         &none    &none  &none  &none  &none  &none        &none
+     &none         &none         &none         &none         &none         &none    &none  &none  &none  &none  &none        &none    
             >;
         };
     };
