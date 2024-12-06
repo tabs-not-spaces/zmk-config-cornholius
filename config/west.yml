@@ -2,10 +2,6 @@ manifest:
   remotes:
     - name: zmkfirmware
       url-base: https://github.com/zmkfirmware
-    - name: ebastler
-      url-base: https://github.com/ebastler
-    - name: petejohanson
-      url-base: https://github.com/petejohanson
     - name: elpekenin
       url-base: https://github.com/elpekenin
   projects:
@@ -13,9 +9,6 @@ manifest:
       remote: zmkfirmware
       revision: main
       import: app/west.yml
-    - name: zmk-userspace
-      remote: elpekenin
-      revision: main
     - name: cornholius
       remote: elpekenin
       revision: main
