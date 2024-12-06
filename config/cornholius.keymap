@@ -37,7 +37,7 @@
             #binding-cells = <0>;
             bindings = <&kp DOLLAR>, <&uc_pound>;
             mods = <(MOD_LSFT)>;
-        }
+        };
     };
 
     tap_dances {
@@ -63,19 +63,20 @@
                        <&gpio BLUE GPIO_OFF>,
                        <&soft_off>;
         };
+
         uc_pound: uc_pound {
-        label = "UNICODE_POUND";
-        compatible = "zmk,behavior-macro";
-        #binding-cells = <0>;
-        tap-ms = <0>;
-        wait-ms = <0>;
-        bindings
-            = <&macro_press &kp LCTRL &kp LSHFT>
-            , <&macro_tap &kp U>
-            , <&macro_release &kp LCTRL &kp LSHFT>
-            , <&macro_tap &kp N0 &kp N0 &kp A &kp N3 &kp SPC>
-            ;
-    }; 
+            label = "UNICODE_POUND";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            tap-ms = <0>;
+            wait-ms = <0>;
+            bindings
+                = <&macro_press &kp LCTRL &kp LSHFT>
+                , <&macro_tap &kp U>
+                , <&macro_release &kp LCTRL &kp LSHFT>
+                , <&macro_tap &kp N0 &kp N0 &kp A &kp N3 &kp SPC>
+                ;
+        }; 
     };
 };
 
