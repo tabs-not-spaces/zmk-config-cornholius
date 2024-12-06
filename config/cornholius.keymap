@@ -17,26 +17,31 @@
 #define UTL 5
 
 / {
-    behaviors {
-        esc_exit: esc_exit {
+    mod_morphs {
+        M_BSP: bspc_or_del {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp BSPC>, <&kp DEL>;
+            mods = <(MOD_LSFT)>;
+        };
+
+        M_VOL: volup_or_voldn {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp C_VOL_UP>, <&kp C_VOL_DN>;
+            mods = <(MOD_LSFT)>;
+        };
+    };
+
+    tap_dances {
+        M_ESC: esc_or_exit {
             compatible = "zmk,behavior-tap-dance";
             label = "ESC_EXIT";
             #binding-cells = <0>;
             bindings =
                 <&kp ESC>,
                 <&kp LA(F4)>;
-
             tapping-term-ms = <190>;
-        };
-        back_del: back_del {
-            compatible = "zmk,behavior-mod-morph";
-            label = "BACK_DEL";
-            bindings =
-                <&kp BACKSPACE>,
-                <&kp DELETE>;
-
-            #binding-cells = <0>;
-            mods = <(MOD_LSFT)>;
         };
     };
 };
@@ -49,9 +54,9 @@
             display-name = "qwerty";
 
             bindings = <
-                  &kp TAB  &kp Q  &kp W     &kp E  &kp R        &kp T          &kp Y  &kp U      &kp I    &kp O     &kp P         &back_del
+                  &kp TAB  &kp Q  &kp W     &kp E  &kp R        &kp T          &kp Y  &kp U      &kp I    &kp O     &kp P            &M_BSP
                 &kp LCTRL  &kp A  &kp S     &kp D  &kp F        &kp G          &kp H  &kp J      &kp K    &kp L  &kp SEMI  &kp SINGLE_QUOTE
-                &kp LSHFT  &kp Z  &kp X     &kp C  &kp V        &kp B          &kp N  &kp M  &kp COMMA  &kp DOT  &kp FSLH         &esc_exit
+                &kp LSHFT  &kp Z  &kp X     &kp C  &kp V        &kp B          &kp N  &kp M  &kp COMMA  &kp DOT  &kp FSLH            &M_ESC
                     &none  &none  &none  &kp LGUI  &mo 1  &lt 4 SPACE    &lt 3 ENTER  &mo 2   &kp RALT    &none     &none            &M_VOL
             >;
         };
@@ -102,7 +107,7 @@
     
         UTIL {
             display-name = "Utilities";
-            
+
             bindings = <
 &bt BT_CLR  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4    &none  &none  &none  &none  &none   &sys_reset
      &none         &none         &none         &none         &none         &none    &none  &none  &none  &none  &none  &bootloader
